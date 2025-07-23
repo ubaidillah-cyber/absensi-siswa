@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Absensi Siswa - SMP ISLAM NURUD DHALAM</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background: linear-gradient(135deg, #a0e7f5, #f9c6df);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+        }
+        h1 {
+            color: #004e89;
+        }
+        select, button {
+            margin: 10px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SMP ISLAM NURUD DHALAM</h1>
+        <h3>Absensi Siswa</h3>
+        <label for="kelas">Pilih Kelas:</label>
+        <select id="kelas" onchange="updateNamaSiswa()">
+            <option value="">--Pilih Kelas--</option>
+            <option value="VII">VII</option>
+            <option value="VIII">VIII</option>
+            <option value="IX">IX</option>
+        </select><br/>
+
+        <label for="nama">Pilih Nama:</label>
+        <select id="nama"></select><br/>
+
+        <label for="status">Status:</label>
+        <select id="status">
+            <option value="Hadir">Hadir</option>
+            <option value="Izin">Izin</option>
+            <option value="Sakit">Sakit</option>
+        </select><br/>
+
+        <button onclick="kirimAbsensi()">Kirim Absensi</button>
+        <p id="hasil"></p>
+    </div>
+
+    <script>
+        const dataSiswa = {
+            VII: ["ZILFATUNNA'IMAH", "MUHAMMAD AFIB", "MUHAMMAD AFAB", "MOH. SYARIF HIDAYATULLAH"],
+            VIII: ["FATIMATUS ZAHROH"],
+            IX: ["SISWA IX A", "SISWA IX B"]
+        };
+
+        function updateNamaSiswa() {
+            const kelas = document.getElementById('kelas').value;
+            const namaSelect = document.getElementById('nama');
+            namaSelect.innerHTML = "";
+            if (kelas && dataSiswa[kelas]) {
+                dataSiswa[kelas].forEach(nama => {
+                    const opt = document.createElement("option");
+                    opt.value = nama;
+                    opt.textContent = nama;
+                    namaSelect.appendChild(opt);
+                });
+            }
+        }
+
+        function kirimAbsensi() {
+            const kelas = document.getElementById("kelas").value;
+            const nama = document.getElementById("nama").value;
+            const status = document.getElementById("status").value;
+            if (!kelas || !nama || !status) {
+                document.getElementById("hasil").textContent = "Mohon lengkapi semua data.";
+                return;
+            }
+            document.getElementById("hasil").textContent = "✅ Absensi berhasil dikirim! (simulasi)";
+        }
+    </script>
+</body>
+</html>
